@@ -1,0 +1,34 @@
+<div class="modal" id="numberModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalLabel">Kata FOO BAR QUIX</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #numberForm="ngForm" (ngSubmit)="onSubmit(numberForm)">
+            <div class="mb-3">
+              <label for="numberInput" class="form-label">Saisissez un nombre :</label>
+              <input type="number" class="form-control" id="numberInput" name="number"
+                     [(ngModel)]="number" #numberModel="ngModel"
+                     min="0" max="100" (input)="onNumberInputChange()" required>
+              <div *ngIf="numberForm.submitted && !numberModel.valid" class="text-danger">
+                <div *ngIf="numberModel.errors?.['required']">Le nombre est requis.</div>
+                <div *ngIf="numberModel.errors?.['min']">Le nombre doit être supérieur ou égal à 0.</div>
+                <div *ngIf="numberModel.errors?.['max']">Le nombre doit être inférieur ou égal à 100.</div>
+              </div>
+            </div>
+            <div class="container d-flex justify-content-center pb-5">
+            <button type="submit" class="btn btn-primary" [disabled]="!numberForm.valid">Tester l'API</button>
+            </div>
+        </form>
+        </div>
+        <div class="modal-footer" *ngIf="result">
+            <div class="alert alert-info w-100 text-center" role="alert">
+              Résultat: {{ result }}
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+  
